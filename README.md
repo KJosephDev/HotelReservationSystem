@@ -4,7 +4,7 @@ This project was generated with Angular CLI version 8.1.0.
 
 ## Before running
 
-Rung `ng install`
+Run `ng install`
 
 
 
