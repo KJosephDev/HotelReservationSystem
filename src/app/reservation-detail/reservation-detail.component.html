@@ -1,0 +1,242 @@
+<ul *ngIf="reservation">
+  <table>
+    <tr>
+      <td>
+        <mat-form-field appearance="fill" class="example-form-field">
+          <mat-label>Date of Arrival</mat-label>
+          <input id="arrival-date" matInput [matDatepicker]="datepicker" [(ngModel)]='reservation.stay.arrivalDate'>
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="fill" class="example-form-field">
+          <mat-label>Date of Departure</mat-label>
+          <input id="departure-date" matInput [matDatepicker]="datepicker2" [(ngModel)]='reservation.stay.departureDate'>
+          <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker2>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+
+
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Room Size</mat-label>
+          <mat-select [(ngModel)]="reservation.room.roomSize">
+            <mat-option value="presidential-suite">Presidential Suite</mat-option>
+            <mat-option value="business-suite">Business Suite</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>Room Quantity</mat-label>
+        <input matInput id="room-quantity" type="number" min="1" max="5" [(ngModel)]="reservation.room.roomQuantity" placeholder="Room Quantity"/> <br/>
+
+          <mat-hint align="end">Maximum: 5</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>First Name</mat-label>
+          <input matInput #input1 maxlength="50" placeholder="First Name" [(ngModel)]="reservation.firstName">
+          <mat-hint align="end">{{input1.value?.length || 0}}/50</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>Last Name</mat-label>
+          <input matInput #input2 maxlength="50" placeholder="Last Name" [(ngModel)]="reservation.lastName">
+          <mat-hint align="end">{{input2.value?.length || 0}}/50</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+        <input matInput placeholder="E-Mail" [(ngModel)]="reservation.email" name="myEmail" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}">
+        </mat-form-field>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="phone-number">Phone Number</label> <br/>
+        <input id="phone-number" [(ngModel)]="reservation.phone" placeholder="Phone Number"/> <br/>
+        Add your country code first
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="street-name">Street Name</label> <br/>
+        <input id="street-name" [(ngModel)]="reservation.addressStreet.streetName" placeholder="Street Name"/> <br/>
+      </td>
+      <td>
+        <label for="street-number">Street Number</label> <br/>
+        <input id="street-number" [(ngModel)]="reservation.addressStreet.streetNumber" placeholder="Street Number"/> <br/>
+      </td>
+      <td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="zip">Zip</label> <br/>
+        <input id="zip" [(ngModel)]="reservation.addressLocation.zipCode" placeholder="Zip"/> <br/>
+      </td>
+      <td>
+<!--        <label for="state">State</label> <br/>-->
+<!--        <input id="state" [(ngModel)]="reservation.addressLocation.state" placeholder="State"/> <br/>-->
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>State</mat-label>
+          <input type="text"
+                 placeholder="Pick one"
+                 aria-label="Number"
+                 matInput
+                 [formControl]="myControl"
+                 [(ngModel)]="reservation.addressLocation.state"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+
+
+      </td>
+      <td>
+        <label for="city">City</label> <br/>
+        <input id="city" [(ngModel)]="reservation.addressLocation.city" placeholder="City"/> <br/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="extra">Extra</label> <br/>
+        <input id="extra" [(ngModel)]="reservation.extras" placeholder="extra"/> <br/>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <mat-radio-group aria-label="Select an option"  [(ngModel)]="reservation.payment">
+          <mat-radio-button [value]="'cc'">Credit Card</mat-radio-button>
+          <mat-radio-button [value]="'paypal'">paypal</mat-radio-button>
+          <mat-radio-button [value]="'cash'">Cash</mat-radio-button>
+          <mat-radio-button [value]="'bitcoin'">Bitcoin</mat-radio-button>
+        </mat-radio-group>
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+<!--        <label for="personal-note">Personal Note</label> <br/>-->
+<!--        <input id="personal-note" [(ngModel)]="reservation.note" placeholder="Personal Note"/> <br/>-->
+
+        <mat-form-field appearance="fill">
+          <mat-label>Personal Note</mat-label>
+          <input matInput #last  [(ngModel)]="reservation.note">
+        </mat-form-field>
+
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+<!--        <label for="tags">Tags</label> <br/>-->
+<!--        <input id="tags" [(ngModel)]="reservation.tags" placeholder="tags"/> <br/>-->
+
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list #tagList aria-label="Tag selection">
+            <mat-chip
+              *ngFor="let tag of tags"
+              (removed)="remove(tag)">
+              {{tag}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input
+              placeholder="New Tag..."
+              #fruitInput
+              [formControl]="tagCtrl"
+              [matChipInputFor]="tagList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+        </mat-form-field>
+
+
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <mat-slide-toggle [(ngModel)]="reservation.reminder">Send me a reminder</mat-slide-toggle>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="3">
+        <mat-slide-toggle [(ngModel)]="reservation.newsletter">Subscribe to newsletter</mat-slide-toggle>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <mat-checkbox class="example-margin" [(ngModel)]="reservation.confirm">I confirm the information given above</mat-checkbox>
+      </td>
+    </tr>
+  </table>
+
+  <button type="button" (click)="closeDialog()">close</button>
+  <button type="button" (click)="save()">save</button>
+  <button *ngIf="!isAddMode" type="button" (click)="deleteReservation(reservation)">delete</button>
+</ul>

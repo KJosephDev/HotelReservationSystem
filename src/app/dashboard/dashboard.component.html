@@ -1,0 +1,29 @@
+<div id="search-component">
+  <label for="search-box">Reservation Search</label>
+
+  <select #searchType>
+    <option selected value="name">Name</option>
+    <option value="email">Email</option>
+  </select>
+
+  <input #searchBox id="search-box"  (keyup.enter)="search(searchBox.value, searchType.value)"/>
+  <button (click)="search(searchBox.value, searchType.value)">search</button>
+</div>
+
+<button (click)="add()">Add</button>
+<table id="customers">
+  <tr>
+    <td>email
+    </td>
+    <td>name
+    </td>
+  </tr>
+  <tr *ngFor="let reservation of reservations" (dblclick)="fnDetail(reservation.id, false)">
+    <td>
+      {{reservation.email}}
+    </td>
+    <td>
+      {{reservation.firstName}} {{reservation.lastName}}
+    </td>
+  </tr>
+</table>
